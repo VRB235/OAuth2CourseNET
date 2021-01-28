@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Leonardo Azocar\\Projects\\DTI\\CursoOauth2\\OAuth2CourseNET\\Authentication\\Basics\\Basics.csproj": {}
+    "C:\\Users\\Leonardo Azocar\\Projects\\DTI\\CursoOauth2\\OAuth2CourseNET\\Authentication\\IdentityExample\\IdentityExample.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Leonardo Azocar\\Projects\\DTI\\CursoOauth2\\OAuth2CourseNET\\Authentication\\Basics\\Basics.csproj": {
+    "C:\\Users\\Leonardo Azocar\\Projects\\DTI\\CursoOauth2\\OAuth2CourseNET\\Authentication\\IdentityExample\\IdentityExample.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Leonardo Azocar\\Projects\\DTI\\CursoOauth2\\OAuth2CourseNET\\Authentication\\Basics\\Basics.csproj",
-        "projectName": "Basics",
-        "projectPath": "C:\\Users\\Leonardo Azocar\\Projects\\DTI\\CursoOauth2\\OAuth2CourseNET\\Authentication\\Basics\\Basics.csproj",
+        "projectUniqueName": "C:\\Users\\Leonardo Azocar\\Projects\\DTI\\CursoOauth2\\OAuth2CourseNET\\Authentication\\IdentityExample\\IdentityExample.csproj",
+        "projectName": "IdentityExample",
+        "projectPath": "C:\\Users\\Leonardo Azocar\\Projects\\DTI\\CursoOauth2\\OAuth2CourseNET\\Authentication\\IdentityExample\\IdentityExample.csproj",
         "packagesPath": "C:\\Users\\Leonardo Azocar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Leonardo Azocar\\Projects\\DTI\\CursoOauth2\\OAuth2CourseNET\\Authentication\\Basics\\obj\\",
+        "outputPath": "C:\\Users\\Leonardo Azocar\\Projects\\DTI\\CursoOauth2\\OAuth2CourseNET\\Authentication\\IdentityExample\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Leonardo Azocar\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,20 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

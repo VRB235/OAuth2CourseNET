@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jhTFzgaI+cVQls62zeqZHClGfq71GpdxLrU/GSFMEE0g7/VEQ84MT5R6bZvvqttP2Ox3bqrrUrY6sCplCPXIAw==",
+  "dgSpecHash": "rKUGz30zfJyAlQH7KYOuNVEp2mI7S123JrMS3ZLy+vwJvleK87fIwahIEarMMlDBq3dGNmuJ0d2aVc3esFPvVQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Leonardo Azocar\\Projects\\DTI\\CursoOauth2\\Authentication\\Basics\\Basics.csproj",
+  "projectFilePath": "C:\\Users\\Leonardo Azocar\\Projects\\DTI\\CursoOauth2\\OAuth2CourseNET\\Authentication\\Basics\\Basics.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
