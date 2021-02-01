@@ -22,6 +22,18 @@ namespace Basics.Controllers
             return View();
         }
 
+        [Authorize(Policy = "Claim.DoB")]
+        public IActionResult SecretPolicy()
+        {
+            return View("Secret");
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult SecretRole()
+        {
+            return View("Secret");
+        }
+
         public IActionResult Authenticate()
         {
 
@@ -35,6 +47,8 @@ namespace Basics.Controllers
             {
                 new Claim(ClaimTypes.Name, "Bob"), // Nombre del usuario
                 new Claim(ClaimTypes.Email, "Bob@gmail.com"), // Correo del usuario
+                new Claim(ClaimTypes.DateOfBirth, "01/01/2020"), // Correo del usuario
+                new Claim(ClaimTypes.Role, "Admin"), // Correo del usuario
                 new Claim("Grandma.Says", "Very Nice boi"), // Dato personalizado del usuario
             };
 

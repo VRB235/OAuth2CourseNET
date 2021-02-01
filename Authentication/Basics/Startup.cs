@@ -1,3 +1,4 @@
+using Basics.AuthorizationRequirements;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,7 +32,24 @@ namespace Basics
                 //.RequireAuthenticatedUser()
                 //.RequireClaim(ClaimTypes.DateOfBirth)
                 //.Build();
+
+                //config.AddPolicy("Claim.DoB", policyBuilder =>
+                //{
+                //    policyBuilder.RequireClaim(ClaimTypes.DateOfBirth);
+                //});
+
+                config.AddPolicy("Admin", policyBuilder =>
+                {
+                    policyBuilder.RequireClaim(ClaimTypes.Role, "Admin");
+                });
+
+                config.AddPolicy("Claim.DoB", policyBuilder =>
+                {
+                    policyBuilder.RequireCustomClaim(ClaimTypes.DateOfBirth);
+                });
             });
+
+            services.AddScoped<IAuthorizationHandler, CustomRequireClaimHandler>();
 
             services.AddControllersWithViews();
         }
