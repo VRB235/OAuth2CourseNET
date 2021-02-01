@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Basics
@@ -22,6 +24,14 @@ namespace Basics
                     config.Cookie.Name = "Grandmas.Cookie"; // Nombre de la Cookie
                     config.LoginPath = "/Home/Authenticate"; // Ruta de autenticación
                 });
+
+            services.AddAuthorization(config => {
+                //var defaultAuthBuilder = new AuthorizationPolicyBuilder();
+                //config.DefaultPolicy = defaultAuthBuilder
+                //.RequireAuthenticatedUser()
+                //.RequireClaim(ClaimTypes.DateOfBirth)
+                //.Build();
+            });
 
             services.AddControllersWithViews();
         }
