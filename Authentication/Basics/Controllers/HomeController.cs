@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using Basics.CustomPolicyProvider;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -23,6 +24,7 @@ namespace Basics.Controllers
         }
 
         [Authorize(Policy = "Claim.DoB")]
+        [Authorize(Policy = "SecurityLevel.5")]
         public IActionResult SecretPolicy()
         {
             return View("Secret");
@@ -34,6 +36,19 @@ namespace Basics.Controllers
             return View("Secret");
         }
 
+        [SecurityLevel(5)]
+        public IActionResult SecretLevel ()
+        {
+            return View("Secret");
+        }
+
+        [SecurityLevel(10)]
+        public IActionResult SecretHigherLevel()
+        {
+            return View("Secret");
+        }
+
+        [AllowAnonymous]
         public IActionResult Authenticate()
         {
 
@@ -49,6 +64,7 @@ namespace Basics.Controllers
                 new Claim(ClaimTypes.Email, "Bob@gmail.com"), // Correo del usuario
                 new Claim(ClaimTypes.DateOfBirth, "01/01/2020"), // Correo del usuario
                 new Claim(ClaimTypes.Role, "Admin"), // Correo del usuario
+                new Claim(DynamicPolicies.SecurityLevel, "7"), // Correo del usuario
                 new Claim("Grandma.Says", "Very Nice boi"), // Dato personalizado del usuario
             };
 
@@ -61,6 +77,21 @@ namespace Basics.Controllers
             HttpContext.SignInAsync(userPrincipal);
 
             return RedirectToAction("Index");
+        }
+
+        public async Task<ActionResult> DoStuff([FromServices] IAuthorizationService authorizationService)
+        {
+
+            var builder = new AuthorizationPolicyBuilder("Schema");
+            var customPolicy = builder.RequireClaim("Hello").Build();
+            var authoResult = await authorizationService.AuthorizeAsync(HttpContext.User, customPolicy);
+
+            if(authoResult.Succeeded)
+            {
+                return View("Index");
+            }
+
+            return View("Index");
         }
     }
 }

@@ -1,8 +1,13 @@
 using Basics.AuthorizationRequirements;
+using Basics.Controllers;
+using Basics.CustomPolicyProvider;
+using Basics.Transformer;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -51,7 +56,25 @@ namespace Basics
 
             services.AddScoped<IAuthorizationHandler, CustomRequireClaimHandler>();
 
-            services.AddControllersWithViews();
+            services.AddScoped<IAuthorizationHandler, CookieJarAuthorizationHandler>();
+
+            services.AddScoped<IAuthorizationHandler, SecurityLevelHandler>();
+
+            services.AddScoped<IClaimsTransformation, ClaimsTransformation>();
+
+
+            services.AddSingleton<IAuthorizationPolicyProvider, CustomAuthorizationPolicyProvider>();
+
+            services.AddControllersWithViews(config =>
+            {
+                var defaultAuthBuilder = new AuthorizationPolicyBuilder();
+                var defaultAuthPolicy = defaultAuthBuilder
+                .RequireAuthenticatedUser()
+                .Build();
+
+                // Filtro global de autorización
+                config.Filters.Add(new AuthorizeFilter(defaultAuthPolicy));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
