@@ -8,6 +8,8 @@ Authentication/Basics/bin/
 Authentication/IdentityExample/bin/
 Authentication/Basics/obj/
 Authentication/IdentityExample/obj/
+Authentication/Server/bin/
+Authentication/Server/obj/
 Authentication/.vs/
 
 # Common node modules locations
