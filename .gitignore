@@ -10,6 +10,8 @@ Authentication/Basics/obj/
 Authentication/IdentityExample/obj/
 Authentication/Server/bin/
 Authentication/Server/obj/
+Authentication/Client/bin/
+Authentication/Client/obj/
 Authentication/.vs/
 
 # Common node modules locations
