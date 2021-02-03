@@ -51,8 +51,9 @@ namespace Server.Controllers
             return Redirect($"{redirectUri}{query.ToString()}");
         }
 
-        public async Task<IActionResult> Token(string grant_type, string code, string redirect_uri, string client)
+        public async Task<IActionResult> Token(string grant_type, string code, string redirect_uri, string client_id, string refresh_token)
         {
+            
             var claims = new[]
             {
                 new Claim(Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames.Sub, "some_id"),
@@ -72,7 +73,9 @@ namespace Server.Controllers
                 Constants.Audiance,
                 claims,
                 notBefore: DateTime.Now,
-                expires: DateTime.Now.AddHours(1),
+                expires: grant_type == "refresh_token"
+                    ? DateTime.Now.AddMinutes(5)
+                    : DateTime.Now.AddMilliseconds(1),
                 signinCredentials
             );
 
@@ -82,7 +85,8 @@ namespace Server.Controllers
             {
                 access_token,
                 token_type = "Bearer",
-                raw_claim = "oauthtutorial"
+                raw_claim = "oauthtutorial",
+                refresh_token = "refreshTokenSampleValue77"
             };
 
             var responseJson = JsonConvert.SerializeObject(responseObject);
