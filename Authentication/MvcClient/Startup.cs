@@ -9,20 +9,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IdentityServer
+namespace MvcClient
 {
     public class Startup
     {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddIdentityServer()
-                .AddInMemoryApiResources(Configuration.GetApis())
-                .AddInMemoryClients(Configuration.GetClients())
-                .AddInMemoryApiScopes(Configuration.GetScopes())
-                .AddInMemoryIdentityResources(Configuration.GetIdentityResources())
-                .AddDeveloperSigningCredential(); // Para crear una firma para el token
+            services.AddAuthentication(config => {
+                config.DefaultScheme = "Cookie";
+                config.DefaultChallengeScheme = "oidc";
+            })
+            .AddCookie("Cookie")
+            .AddOpenIdConnect("oidc", config => {
+                config.Authority = "https://localhost:44339/";
+                config.ClientId = "client_id_mvc";
+                config.ClientSecret = "client_secret_mvc";
+                config.SaveTokens = true;
+
+                config.ResponseType = "code";
+            });
 
             services.AddControllersWithViews();
         }
@@ -46,7 +59,9 @@ namespace IdentityServer
 
             app.UseRouting();
 
-            app.UseIdentityServer();
+            app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.UseAuthorization();
 
