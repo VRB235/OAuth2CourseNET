@@ -21,3 +21,9 @@ Authentication/.vs/
 # End of https://www.toptal.com/developers/gitignore/api/dotnetcore
 /Authentication/API/bin/Debug/netcoreapp3.1
 /Authentication/API/obj
+/Authentication/ApiOne/bin/Debug/netcoreapp3.1
+/Authentication/ApiOne/obj
+/Authentication/ApiTwo/bin/Debug/netcoreapp3.1
+/Authentication/ApiTwo/obj
+/Authentication/IdentityServer/bin/Debug/netcoreapp3.1
+/Authentication/IdentityServer/obj
