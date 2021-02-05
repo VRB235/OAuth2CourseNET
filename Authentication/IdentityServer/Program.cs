@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace IdentityServer
@@ -24,6 +25,9 @@ namespace IdentityServer
                 var user = new IdentityUser("bob");
 
                 userManager.CreateAsync(user, "password").GetAwaiter().GetResult();
+
+                userManager.AddClaimAsync(user, new Claim("rc.grandma", "big.cookie")).GetAwaiter().GetResult();
+                userManager.AddClaimAsync(user, new Claim("rc.api.grandma", "big.api.cookie")).GetAwaiter().GetResult();
             }
 
             host.Run();

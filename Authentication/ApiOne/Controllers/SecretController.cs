@@ -13,6 +13,10 @@ namespace ApiOne.Controllers
         [Authorize]
         public string Index()
         {
+            var claims = User.Claims.ToList();
+
+
+
             return "secret_massage_from_ApiOne";
         }
     }

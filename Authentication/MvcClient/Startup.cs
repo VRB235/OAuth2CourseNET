@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,8 +35,24 @@ namespace MvcClient
                 config.ClientSecret = "client_secret_mvc";
                 config.SaveTokens = true;
 
+                config.Scope.Add("rc.scope");
+
+                // Mapear cookies
+                config.ClaimActions.MapUniqueJsonKey("rawCoding.Grandma","rc.grandma");
+                config.ClaimActions.DeleteClaim("amr");
+
+                config.Scope.Clear();
+                config.Scope.Add("openid");
+                config.Scope.Add("rc.scope");
+                config.Scope.Add("ApiOne");
+
+                // Cargar Claims en la cookie
+                config.GetClaimsFromUserInfoEndpoint = true;
+
                 config.ResponseType = "code";
             });
+
+            services.AddHttpClient();
 
             services.AddControllersWithViews();
         }

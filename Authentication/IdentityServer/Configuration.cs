@@ -15,7 +15,9 @@ namespace IdentityServer
                 new ApiResource
                 {
                     Name = "ApiOne",
-                    Scopes= { "ApiOne" }
+                    Scopes= { "ApiOne" },
+                    UserClaims = { "rc.api.grandma" }
+                    
                 } 
                 ,
                 new ApiResource
@@ -41,9 +43,12 @@ namespace IdentityServer
                     ClientSecrets = {new Secret("client_secret_mvc".ToSha256())},
 
                     AllowedGrantTypes = GrantTypes.Code,
-                    AllowedScopes = { "ApiOne", "ApiTwo", IdentityServerConstants.StandardScopes.OpenId, IdentityServerConstants.StandardScopes.Profile },
+                    AllowedScopes = { "ApiOne", "ApiTwo", IdentityServerConstants.StandardScopes.OpenId, IdentityServerConstants.StandardScopes.Profile , "rc.scope"},
 
                     RedirectUris = { "https://localhost:44375/signin-oidc" },
+
+                    // Colocar los claims en el id_token
+                    //AlwaysIncludeUserClaimsInIdToken = true
                 }
             };
 
@@ -58,6 +63,14 @@ namespace IdentityServer
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
+                new IdentityResource
+                {
+                    Name = "rc.scope",
+                    UserClaims =
+                    {
+                        "rc.grandma"
+                    }
+                }
             };
     }
 }
