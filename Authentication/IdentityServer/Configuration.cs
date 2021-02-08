@@ -51,6 +51,16 @@ namespace IdentityServer
 
                     // Colocar los claims en el id_token
                     //AlwaysIncludeUserClaimsInIdToken = true
+                },
+                new Client
+                {
+                    ClientId = "client_id_js",
+                    RedirectUris = { "https://localhost:44370/Home/SignIn" },
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowedScopes = { IdentityServerConstants.StandardScopes.OpenId , "ApiOne" },
+                    AllowAccessTokensViaBrowser = true,
+                    RequireConsent = false
+
                 }
             };
 

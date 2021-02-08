@@ -29,3 +29,5 @@ Authentication/.vs/
 /Authentication/IdentityServer/obj
 /Authentication/MvcClient/bin/Debug/netcoreapp3.1
 /Authentication/MvcClient/obj
+/Authentication/JSClient/bin/Debug/netcoreapp3.0
+/Authentication/JSClient/obj
