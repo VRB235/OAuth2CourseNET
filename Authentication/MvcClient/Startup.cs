@@ -45,6 +45,7 @@ namespace MvcClient
                 config.Scope.Add("openid");
                 config.Scope.Add("rc.scope");
                 config.Scope.Add("ApiOne");
+                config.Scope.Add("offline_access");
 
                 // Cargar Claims en la cookie
                 config.GetClaimsFromUserInfoEndpoint = true;

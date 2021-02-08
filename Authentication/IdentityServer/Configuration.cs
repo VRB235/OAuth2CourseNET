@@ -45,6 +45,8 @@ namespace IdentityServer
                     AllowedGrantTypes = GrantTypes.Code,
                     AllowedScopes = { "ApiOne", "ApiTwo", IdentityServerConstants.StandardScopes.OpenId, IdentityServerConstants.StandardScopes.Profile , "rc.scope"},
 
+                    AllowOfflineAccess = true,
+
                     RedirectUris = { "https://localhost:44375/signin-oidc" },
 
                     // Colocar los claims en el id_token
