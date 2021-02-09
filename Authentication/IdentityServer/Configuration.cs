@@ -59,6 +59,7 @@ namespace IdentityServer
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowedScopes = { IdentityServerConstants.StandardScopes.OpenId , "ApiOne" },
                     AllowAccessTokensViaBrowser = true,
+                    AllowedCorsOrigins = { "https://localhost:44370" },
                     RequireConsent = false
 
                 }
