@@ -1,12 +1,11 @@
 ﻿<h1>Sign Page</h1>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/oidc-client/1.11.3/oidc-client.js"></script>
 
 <script>
-    var userManager = new Oidc.userManager();
+    var userManager = new Oidc.UserManager({ userStore: new Oidc.WebStorageStateStore({ store: window.localStorage }) });
 
-    userManager.singinCallback().then(res => {
+    userManager.signinCallback().then(res => {
         console.log(res);
-        window.location.href = 'home/index';
+        window.location.href = '/home/index';
     })
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/oidc-client/1.11.3/oidc-client.js"></script>

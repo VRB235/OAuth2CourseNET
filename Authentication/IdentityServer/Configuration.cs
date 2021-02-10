@@ -57,10 +57,11 @@ namespace IdentityServer
                     ClientId = "client_id_js",
                     RedirectUris = { "https://localhost:44370/Home/SignIn" },
                     AllowedGrantTypes = GrantTypes.Implicit,
-                    AllowedScopes = { IdentityServerConstants.StandardScopes.OpenId , "ApiOne" },
+                    AllowedScopes = { IdentityServerConstants.StandardScopes.OpenId , "ApiOne", "ApiTwo", "rc.scope" },
                     AllowAccessTokensViaBrowser = true,
                     AllowedCorsOrigins = { "https://localhost:44370" },
-                    RequireConsent = false
+                    RequireConsent = false,
+                    AccessTokenLifetime = 1,
 
                 }
             };
