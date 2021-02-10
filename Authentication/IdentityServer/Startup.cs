@@ -61,15 +61,15 @@ namespace IdentityServer
                 })
                 .AddOperationalStore(options=> { 
                     options.ConfigureDbContext = b => b.UseSqlServer(connectionString, sql => sql.MigrationsAssembly(migrationAssembly));
-                });
+                })
+                .AddDeveloperSigningCredential(); // Para crear una firma para el token
 
 
-                //.AddAspNetIdentity<IdentityUser>()
-                //.AddInMemoryApiResources(Configuration.GetApis())
-                //.AddInMemoryClients(Configuration.GetClients())
-                //.AddInMemoryApiScopes(Configuration.GetScopes())
-                //.AddInMemoryIdentityResources(Configuration.GetIdentityResources())
-                //.AddDeveloperSigningCredential(); // Para crear una firma para el token
+            //.AddAspNetIdentity<IdentityUser>()
+            //.AddInMemoryApiResources(Configuration.GetApis())
+            //.AddInMemoryClients(Configuration.GetClients())
+            //.AddInMemoryApiScopes(Configuration.GetScopes())
+            //.AddInMemoryIdentityResources(Configuration.GetIdentityResources())
 
             services.AddControllersWithViews();
         }
