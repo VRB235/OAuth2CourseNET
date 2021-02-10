@@ -1,5 +1,8 @@
+using IdentityServer4.EntityFramework.DbContexts;
+using IdentityServer4.EntityFramework.Mappers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,6 +31,38 @@ namespace IdentityServer
 
                 userManager.AddClaimAsync(user, new Claim("rc.grandma", "big.cookie")).GetAwaiter().GetResult();
                 userManager.AddClaimAsync(user, new Claim("rc.api.grandma", "big.api.cookie")).GetAwaiter().GetResult();
+
+                Scope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
+
+                var context = Scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
+                context.Database.Migrate();
+                if (!context.Clients.Any())
+                {
+                    foreach (var client in Configuration.GetClients())
+                    {
+                        context.Clients.Add(client.ToEntity());
+                    }
+                    context.SaveChanges();
+                }
+
+                if (!context.IdentityResources.Any())
+                {
+                    foreach (var resource in Configuration.GetIdentityResources())
+                    {
+                        context.IdentityResources.Add(resource.ToEntity());
+                    }
+                    context.SaveChanges();
+                }
+
+                if (!context.ApiScopes.Any())
+                {
+                    foreach (var resource in Configuration.GetScopes())
+                    {
+                        context.ApiScopes.Add(resource.ToEntity());
+                    }
+                    context.SaveChanges();
+                }
+
             }
 
             host.Run();

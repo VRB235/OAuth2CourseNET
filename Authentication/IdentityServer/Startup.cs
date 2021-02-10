@@ -16,13 +16,21 @@ namespace IdentityServer
 {
     public class Startup
     {
+        private readonly IConfiguration _configuration;
+
+        public Startup(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = _configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<AppDbContext>(config => // Aguega una BD
             {
-                config.UseInMemoryDatabase("Memory"); // Agrega la BD a memoria
+                config.UseSqlServer(connectionString);
+                //config.UseInMemoryDatabase("Memory"); // Agrega la BD a memoria
             });
 
             // Registra los servicios o infraestructura
@@ -41,13 +49,27 @@ namespace IdentityServer
                 config.LoginPath = "/Auth/Login"; // Ruta de autenticación
             });
 
+            var migrationAssembly = typeof(Startup).Assembly.GetName().Name;
+
+
+
             services.AddIdentityServer()
                 .AddAspNetIdentity<IdentityUser>()
-                .AddInMemoryApiResources(Configuration.GetApis())
-                .AddInMemoryClients(Configuration.GetClients())
-                .AddInMemoryApiScopes(Configuration.GetScopes())
-                .AddInMemoryIdentityResources(Configuration.GetIdentityResources())
-                .AddDeveloperSigningCredential(); // Para crear una firma para el token
+                .AddConfigurationStore(options =>
+                {
+                    options.ConfigureDbContext = b => b.UseSqlServer(connectionString, sql => sql.MigrationsAssembly(migrationAssembly));
+                })
+                .AddOperationalStore(options=> { 
+                    options.ConfigureDbContext = b => b.UseSqlServer(connectionString, sql => sql.MigrationsAssembly(migrationAssembly));
+                });
+
+
+                //.AddAspNetIdentity<IdentityUser>()
+                //.AddInMemoryApiResources(Configuration.GetApis())
+                //.AddInMemoryClients(Configuration.GetClients())
+                //.AddInMemoryApiScopes(Configuration.GetScopes())
+                //.AddInMemoryIdentityResources(Configuration.GetIdentityResources())
+                //.AddDeveloperSigningCredential(); // Para crear una firma para el token
 
             services.AddControllersWithViews();
         }
