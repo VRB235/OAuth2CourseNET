@@ -47,6 +47,8 @@ namespace IdentityServer
 
                     AllowOfflineAccess = true,
 
+                    RequirePkce = true,
+
                     RedirectUris = { "https://localhost:44375/signin-oidc" },
 
                     PostLogoutRedirectUris = { "https://localhost:44375/Home/Index" }
@@ -58,13 +60,15 @@ namespace IdentityServer
                 {
                     ClientId = "client_id_js",
                     RedirectUris = { "https://localhost:44370/Home/SignIn" },
-                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequireClientSecret = false,
                     AllowedScopes = { IdentityServerConstants.StandardScopes.OpenId , "ApiOne", "ApiTwo", "rc.scope" },
                     AllowAccessTokensViaBrowser = true,
                     AllowedCorsOrigins = { "https://localhost:44370" },
                     RequireConsent = false,
                     AccessTokenLifetime = 1,
-                    PostLogoutRedirectUris = { "https://localhost:44370/Home/Index" }
+                    PostLogoutRedirectUris = { "https://localhost:44370/Home/Index" },
+                    RequirePkce = true,
 
                 }
             };

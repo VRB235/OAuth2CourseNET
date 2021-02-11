@@ -3,7 +3,7 @@
     authority: "https://localhost:44339",
     client_id: "client_id_js",
     redirect_uri: "https://localhost:44370/Home/SignIn",
-    response_type: "id_token token",
+    response_type: "code",
     scope: "openid ApiOne ApiTwo rc.scope",
     post_logout_redirect_uri: "https://localhost:44370/Home/Index"
 };
