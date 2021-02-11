@@ -47,6 +47,8 @@ namespace MvcClient
                 config.Scope.Add("ApiOne");
                 config.Scope.Add("offline_access");
 
+                config.SignedOutCallbackPath = "/Home/Index";
+
                 // Cargar Claims en la cookie
                 config.GetClaimsFromUserInfoEndpoint = true;
 

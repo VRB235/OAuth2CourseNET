@@ -47,11 +47,10 @@ namespace IdentityServer
             {
                 config.Cookie.Name = "IdentityServer.Cookie"; // Nombre de la Cookie
                 config.LoginPath = "/Auth/Login"; // Ruta de autenticación
+                config.LogoutPath = "/Auth/Logout"; // Ruta de cierre de sesión
             });
 
             var migrationAssembly = typeof(Startup).Assembly.GetName().Name;
-
-
 
             services.AddIdentityServer()
                 .AddAspNetIdentity<IdentityUser>()
@@ -59,7 +58,8 @@ namespace IdentityServer
                 {
                     options.ConfigureDbContext = b => b.UseSqlServer(connectionString, sql => sql.MigrationsAssembly(migrationAssembly));
                 })
-                .AddOperationalStore(options=> { 
+                .AddOperationalStore(options =>
+                {
                     options.ConfigureDbContext = b => b.UseSqlServer(connectionString, sql => sql.MigrationsAssembly(migrationAssembly));
                 })
                 .AddDeveloperSigningCredential(); // Para crear una firma para el token

@@ -83,7 +83,12 @@ namespace MvcClient.Controllers
             authInfo.Properties.UpdateTokenValue("id_token", tokenResponse.IdentityToken);
             authInfo.Properties.UpdateTokenValue("refresh_token", tokenResponse.RefreshToken);
 
-            await HttpContext.SignInAsync("ClientCookie", authInfo.Principal, authInfo.Properties);
+            await HttpContext.SignInAsync("Cookie", authInfo.Principal, authInfo.Properties);
+        }
+
+        public IActionResult Logout()
+        {
+            return SignOut("Cookie", "oidc");
         }
     }
 }

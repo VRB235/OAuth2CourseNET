@@ -49,6 +49,8 @@ namespace IdentityServer
 
                     RedirectUris = { "https://localhost:44375/signin-oidc" },
 
+                    PostLogoutRedirectUris = { "https://localhost:44375/Home/Index" }
+
                     // Colocar los claims en el id_token
                     //AlwaysIncludeUserClaimsInIdToken = true
                 },
@@ -62,6 +64,7 @@ namespace IdentityServer
                     AllowedCorsOrigins = { "https://localhost:44370" },
                     RequireConsent = false,
                     AccessTokenLifetime = 1,
+                    PostLogoutRedirectUris = { "https://localhost:44370/Home/Index" }
 
                 }
             };
