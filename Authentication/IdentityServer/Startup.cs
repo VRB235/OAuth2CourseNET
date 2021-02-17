@@ -95,6 +95,15 @@ namespace IdentityServer
 
             app.UseIdentityServer();
 
+            // Eso es para los problemas de Chrome con las cookies en http
+            if(env.IsDevelopment())
+            {
+                app.UseCookiePolicy(new CookiePolicyOptions()
+                {
+                    MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.Lax
+                });
+            }
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
